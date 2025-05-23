@@ -1,7 +1,7 @@
 import { getTaskList, createNewTask, deleteTask, patchTask } from "@/services/taskService";
 import { defineStore } from "pinia";
 
-export const useTaskStore = defineStore('task', {
+export const useTasksStore = defineStore('task', {
   state: () => ({
         tasks: [],
         newTask: ''
@@ -22,6 +22,11 @@ export const useTaskStore = defineStore('task', {
         async patchTask(task) {
             const callResponse = await patchTask(task);
             await this.loadTasks();
+        },
+        updateOrdersFromIndex() {
+            this.tasks.map((task, index) => {
+                task.order = index + 1;
+            });
         },
     },
 })
