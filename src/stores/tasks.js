@@ -1,32 +1,45 @@
-import { getTaskList, createNewTask, deleteTask, patchTask } from "@/services/taskService";
+import { apiGetTaskList, apiCreateNewTask, apiDeleteTask, apiPatchTask } from "@/services/taskService";
 import { defineStore } from "pinia";
+import { useToastStore } from '@/stores/toast';
+import { ref } from "vue";
 
-export const useTasksStore = defineStore('task', {
-  state: () => ({
-        tasks: [],
-        newTask: ''
-    }),
-    actions: {
-        async loadTasks() {
-            this.tasks = await getTaskList();
-        },
-        async createTask() {
-            const callResponse = await createNewTask(this.newTask)
-            this.newTask = '';
-            await this.loadTasks();
-        },
-        async deleteTask(task) {
-            const callResponse = await deleteTask(task);
-            await this.loadTasks();
-        },
-        async patchTask(task) {
-            const callResponse = await patchTask(task);
-            await this.loadTasks();
-        },
-        updateOrdersFromIndex() {
-            this.tasks.map((task, index) => {
-                task.order = index + 1;
-            });
-        },
-    },
-})
+export const useTasksStore = defineStore('task', () => {
+    const tasks = ref([]);
+    const newTask = ref('');
+    const maxTitleLength = 10;
+    const toastStore = useToastStore();
+
+    const loadTasks = async () => {
+        tasks.value = await apiGetTaskList();
+    };
+    const createTask = async () => {
+        if (newTask.value.length > maxTitleLength) {
+            toastStore.show('Task name is too long !', 'error');
+            newTask.value = '';
+            return;
+        }
+        const callResponse = await apiCreateNewTask(newTask.value)
+        newTask.value = '';
+        await loadTasks();
+    };
+    const deleteTask = async (task) => {
+        const callResponse = await apiDeleteTask(task);
+        await loadTasks();
+    };
+    const patchTask = async (task) => {
+        if (task.title.length > maxTitleLength) {
+            toastStore.show('Task name is too long !', 'error');
+            // TODO Mettre le titre de base
+            return;
+        }
+        const callResponse = await apiPatchTask(task);
+        await loadTasks();
+    };
+    const updateOrdersFromIndex = () => {
+        tasks.value.map((task, index) => {
+            task.order = index + 1;
+        });
+    };
+
+    return { tasks, newTask, maxTitleLength, loadTasks, createTask, deleteTask, patchTask, updateOrdersFromIndex }
+});
