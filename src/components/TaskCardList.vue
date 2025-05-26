@@ -2,7 +2,7 @@
     <draggable v-model="tasksStore.tasks" item-key="order" @end="onDragEnd">
         <template #item="{ element: storeTask, index }" >
             <div class="flex items-center justify-between gap-2 max-w-1/2 mx-auto p-2 bg-white rounded shadow hover:bg-emerald-300">
-                <task-card :task="storeTask" @update-task="tasksStore.patchTask(storeTask)" @delete-task="tasksStore.deleteTask(storeTask)"/>
+                <task-card :task="storeTask" @update-task="(originalTitle) => tasksStore.patchTask(storeTask, originalTitle)" @delete-task="tasksStore.deleteTask(storeTask)"/>
             </div>
         </template>
     </draggable>

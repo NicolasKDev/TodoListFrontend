@@ -1,5 +1,5 @@
 <template>
-    <div v-if="toastStore.message !== ''" class="w-full flex justify-end fixed z-50 right-0 mx-5">
+    <div v-if="toastStore.message !== ''" class="w-full flex justify-end fixed z-50 right-0 mx-5 pointer-events-none">
         <div class="flex w-full max-w-sm py-5 px-6 text-gray-600 bg-white rounded-xl border border-gray-200 shadow-sm mb-4" role="alert">
             <div v-if="toastStore.type === 'error'" class="flex mr-5 my-auto items-center justify-center w-6 h-6 bg-red-400 rounded-full">
                 <XMarkIcon class="h-4 w-4 text-white"/>
