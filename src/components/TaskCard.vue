@@ -14,7 +14,7 @@
                 v-model="task.title" 
                 v-focus 
                 @blur="emitUpdateTask(task)" 
-                @keyup.enter="emitUpdateTask(task)"
+                @keyup.enter="emitUpdateTask"
                 @keyup.escape="exitEditMode"></input>
             <span 
                 class="inline-block w-full px-2 py-1 break-words align-top mx-4 text-slate-800"
@@ -34,7 +34,7 @@
 
     const tasksStore = useTasksStore();
     const emit = defineEmits(['updateTask', 'deleteTask']);
-    let originalText = '';
+    let originalTitle = '';
     
     const props = defineProps({
         task: {}
@@ -47,16 +47,16 @@
 
     const enterEditMode = () => {
         modifyingId.value = props.task.id;
-        originalText = props.task.title;
+        originalTitle = props.task.title;
     }
 
     const exitEditMode = () => {
-        props.task.title = originalText;
+        props.task.title = originalTitle;
         modifyingId.value = null;
     }
 
     const emitUpdateTask = () => {
         modifyingId.value = null;
-        emit('updateTask')
+        emit('updateTask', originalTitle)
     };
 </script>
