@@ -6,7 +6,7 @@
             type="checkbox" 
             v-model="task.completed"
             @change="emitUpdateTask(task)"></input>
-        <div class="w-full" @click="modifyingId = task.id" >
+        <div class="w-full" @click="enterEditMode" >
             <input 
                 class="inline-block w-full lg:min-w-3xl rounded-xl px-2 py-1 mx-4 text-slate-800"
                 type="text"
@@ -14,8 +14,8 @@
                 v-model="task.title" 
                 v-focus 
                 @blur="emitUpdateTask(task)" 
-                @keyup.enter="emitUpdateTask(task)"
-                @keyup.escape="modifyingId.value = null"></input>
+                @keyup.enter="emitUpdateTask"
+                @keyup.escape="exitEditMode"></input>
             <span 
                 class="inline-block w-full px-2 py-1 break-words align-top mx-4 text-slate-800"
                 :class="(task.completed) ? 'line-through' : ''"
@@ -30,8 +30,11 @@
     import { ref } from 'vue';
     import { TrashIcon } from '@heroicons/vue/24/solid'
     import IconButton from '@/components/IconButton.vue'
+    import { useTasksStore } from '@/stores/tasks';
 
+    const tasksStore = useTasksStore();
     const emit = defineEmits(['updateTask', 'deleteTask']);
+    let originalTitle = '';
     
     const props = defineProps({
         task: {}
@@ -42,8 +45,18 @@
         mounted: (el) => el.focus()
     };
 
+    const enterEditMode = () => {
+        modifyingId.value = props.task.id;
+        originalTitle = props.task.title;
+    }
+
+    const exitEditMode = () => {
+        props.task.title = originalTitle;
+        modifyingId.value = null;
+    }
+
     const emitUpdateTask = () => {
         modifyingId.value = null;
-        emit('updateTask')
+        emit('updateTask', originalTitle)
     };
 </script>

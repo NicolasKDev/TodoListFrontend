@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const API_URL = 'http://todolistapi.test/api/tasks'
+const API_URL = 'http://localhost:8000/api/tasks'
 
-export const getTaskList = async () => {
+export const apiGetTaskList = async () => {
     try {
         const res = await axios.get(API_URL);
         const tasklist = res.data.sort((a, b) => a.order - b.order);
@@ -19,7 +19,7 @@ export const getTaskList = async () => {
     }
 };
 
-export const createNewTask = async (newTask) => {
+export const apiCreateNewTask = async (newTask) => {
     if (newTask === '') {
         return;
     }
@@ -39,15 +39,13 @@ export const createNewTask = async (newTask) => {
     }
 };
 
-export const deleteTask = async (task) => {
+export const apiDeleteTask = async (task) => {
     await axios.delete(API_URL + "/" + task.id);
 };
 
-export const patchTask = async (task) => {
-    console.log(task);
+export const apiPatchTask = async (task) => {
     try {
-        const test = await axios.patch(API_URL + "/" + task.id, task);
-        console.log(test)
+        await axios.patch(API_URL + "/" + task.id, task);
     }
     catch (error) {
         if (axios.isAxiosError(error)) {
