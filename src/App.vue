@@ -5,7 +5,7 @@
   <add-task />
   
   <div class="mt-2">
-    <Task-card-list />
+    <task-card-list />
   </div>
 
 </template>

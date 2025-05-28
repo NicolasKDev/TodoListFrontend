@@ -16,6 +16,13 @@
     
     const tasksStore = useTasksStore();
 
+    /**
+     * When the user drops a task card, this method is called.
+     * It updates the order of the tasks from index (index +1) by calling updateOrdersFromIndex
+     * then calls patchTask with the task at its new index.
+     * The goal is to update the tasks in the backend API.
+     * @param {object} event
+     */
     const onDragEnd = (event) => {
         const newIndex = event.newIndex;
         tasksStore.updateOrdersFromIndex();
