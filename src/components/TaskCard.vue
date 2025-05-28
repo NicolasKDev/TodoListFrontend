@@ -23,40 +23,52 @@
                 >{{ task.title }}</span>
         </div>
     </div>
-    <icon-button @click="$emit('deleteTask')"><TrashIcon class="h-4 w-4"/></icon-button>
+    <icon-button @click="$emit('deleteTask')">
+        <TrashIcon class="h-4 w-4"/>
+    </icon-button>
 </template>
 
 <script setup>
     import { ref } from 'vue';
     import { TrashIcon } from '@heroicons/vue/24/solid'
     import IconButton from '@/components/IconButton.vue'
-    import { useTasksStore } from '@/stores/tasks';
 
-    const tasksStore = useTasksStore();
     const emit = defineEmits(['updateTask', 'deleteTask']);
-    let originalTitle = '';
     
     const props = defineProps({
         task: {}
     });
+    let originalTitle = '';
+    // Id of the modified task
     const modifyingId = ref(null);
 
+    // Custom directive that allows to focus an element when it is mounted
     const vFocus = {
         mounted: (el) => el.focus()
     };
 
+    /**
+     * Sets the task field to be in edit mod
+     */
     const enterEditMode = () => {
         modifyingId.value = props.task.id;
         originalTitle = props.task.title;
     }
 
+    /**
+     * Exit the edit mode and reset the task title to its original value
+     */
     const exitEditMode = () => {
-        props.task.title = originalTitle;
         modifyingId.value = null;
+        props.task.title = originalTitle;
     }
 
+    /**
+     * Exit the edit mode and send an event to the parent to update the task's title
+     */
     const emitUpdateTask = () => {
         modifyingId.value = null;
         emit('updateTask', originalTitle)
     };
 </script>
+
