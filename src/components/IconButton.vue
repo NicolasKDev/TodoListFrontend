@@ -4,6 +4,3 @@
     </button>
 </template>
 
-<script setup>
-
-</script>
