@@ -1,5 +1,5 @@
 <template>
-  <button class="bg-emerald-400 hover:bg-emerald-500 text-slate-800 rounded-xl mx-1 px-4 py-2">
+  <button class="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl mx-1 px-4 py-2">
     <slot />
   </button>
 </template>

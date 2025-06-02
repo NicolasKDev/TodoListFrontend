@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="tasksStore.createTask" class="flex w-full justify-center my-4">
     <input
-      class="w-1/2 px-2 py-1 mr-1 rounded-xl bg-white shadow-md text-slate-800"
+      class="w-1/2 px-2 py-1 mr-1 rounded-xl bg-input shadow-md text-foreground"
       type="text"
       placeholder="New Task"
       v-model="tasksStore.newTaskTitle"

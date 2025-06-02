@@ -24,5 +24,5 @@ export const useToastStore = defineStore('toast', () => {
     message.value = ''
   }
 
-  return { message, type, show }
+  return { message, type, show, reset }
 })

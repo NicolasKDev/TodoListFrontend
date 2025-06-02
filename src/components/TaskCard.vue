@@ -1,16 +1,16 @@
 <template>
   <div
-    class="flex w-full items-start justify-start p-2 rounded shadow hover:bg-emerald-300 space-x-2 cursor-pointer"
+    class="flex w-full justify-start items-center p-2 rounded shadow text-card-foreground hover:bg-accent space-x-2 cursor-pointer"
   >
     <input
-      class="form-checkbox appearance-none shrink-0 w-4 h-4 border-2 border-blue-300 rounded-sm mx-2 my-2.5 bg-white checked:border-blue-300 checked:bg-blue-500"
+      class="flex space-x-2 cursor-pointer hover:bg-accent p-2 rounded"
       type="checkbox"
       v-model="localTask.completed"
       @change="emitUpdateTask(task, originalTitle)"
     />
     <div class="w-full" @click="enterEditMode">
       <input
-        class="inline-block w-full lg:min-w-3xl rounded-xl px-2 py-1 mx-4 text-slate-800"
+        class="inline-block w-full lg:min-w-3xl rounded-xl px-2 py-1 mx-4"
         type="text"
         v-if="modifyingId === task.id"
         v-model="localTask.title"
@@ -20,7 +20,7 @@
         @keyup.escape="exitEditMode"
       />
       <span
-        class="inline-block w-full px-2 py-1 break-words align-top mx-4 text-slate-800"
+        class="inline-block w-full px-2 py-1 break-words align-top mx-4"
         :class="task.completed ? 'line-through' : ''"
         v-else
         >{{ task.title }}</span
