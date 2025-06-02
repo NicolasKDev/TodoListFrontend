@@ -8,7 +8,7 @@
     <template #item="{ element: storeTask, index }">
       <task-card
         :task="storeTask"
-        :class="index % 2 === 0 ? 'bg-white' : 'bg-slate-50'"
+        :class="index % 2 === 0 ? 'bg-card' : 'bg-secondary-card'"
         @update-task="updateTask"
         @delete-task="tasksStore.deleteTask(storeTask)"
       />
