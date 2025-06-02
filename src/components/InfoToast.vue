@@ -1,10 +1,11 @@
 <template>
   <div
     v-if="toastStore.message"
-    class="absolute top-5 left-1/2 -translate-x-1/2 z-100 pointer-events-none xl:w-1/5 w-80"
+    class="absolute top-5 left-1/2 -translate-x-1/2 z-100 xl:w-1/5 w-80"
+    @click="toastStore.reset"
   >
     <div
-      class="flex w-full max-w-sm py-5 px-5 text-gray-600 bg-white rounded-xl border border-gray-200 shadow-sm mb-4"
+      class="flex w-full max-w-sm py-5 px-5 text-popover-foreground bg-popover rounded-xl border border-gray-200 shadow-sm mb-4"
     >
       <div
         v-if="toastStore.type === 'error'"
@@ -14,7 +15,7 @@
       </div>
       <p class="text-base font-medium pt-0.5">{{ toastStore.message }}</p>
       <div class="ml-auto flex justify-end items-center space-x-3">
-        <icon-button @click="toastStore.reset"><XMarkIcon class="h-4 w-4" /></icon-button>
+        <icon-button @click="toastStore.reset"><XMarkIcon class="h-8 w-8" /></icon-button>
       </div>
     </div>
   </div>

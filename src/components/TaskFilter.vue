@@ -10,16 +10,16 @@
     </div>
     <div
       v-if="filtersStore.visibleFilters"
-      class="bg-white rounded-lg shadow-lg p-4 2xl:w-80 space-y-1 mb-4 w-full"
+      class="bg-card rounded-lg shadow-lg p-4 2xl:w-80 space-y-1 mb-4 w-full"
     >
       <div class="flex items-center space-x-2 p-2">
         <span class="text-lg font-medium">State</span>
       </div>
-      <label class="flex items-center space-x-2 cursor-pointer hover:bg-emerald-50 p-2 rounded">
+      <label class="flex items-center space-x-2 cursor-pointer hover:bg-accent p-2 rounded">
         <input type="checkbox" name="todo" value="todo" v-model="stateValue" class="w-4 h-4" />
         <span>Todo</span>
       </label>
-      <label class="flex items-center space-x-2 cursor-pointer hover:bg-emerald-50 p-2 rounded">
+      <label class="flex items-center space-x-2 cursor-pointer hover:bg-accent p-2 rounded">
         <input type="checkbox" name="done" value="done" v-model="stateValue" class="w-4 h-4" />
         <span>Done</span>
       </label>
