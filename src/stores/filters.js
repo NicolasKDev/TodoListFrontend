@@ -50,10 +50,26 @@ export const useFiltersStore = defineStore('filters', () => {
     tasksStore.loadTasks()
   }
 
+  const getFilter = (filterName) => {
+    return filters.value.find((filter) => filter.filterName === filterName)
+  }
+
+  const setFiltersFromStorage = () => {
+    const filtersInStorage = localStorage.getItem('filters')
+    filters.value = filtersInStorage ? JSON.parse(filtersInStorage) : []
+  }
+
+  const setFilters = (filters) => {
+    filters.value = filters
+  }
+
   return {
     filters,
     applyFilters,
     addOrUpdateFilter,
     visibleFilters,
+    getFilter,
+    setFiltersFromStorage,
+    setFilters,
   }
 })

@@ -7,8 +7,9 @@
       type="checkbox"
       v-model="localTask.completed"
       @change="emitUpdateTask(task, originalTitle)"
+      data-testid="task-checkbox"
     />
-    <div class="w-full" @click="enterEditMode">
+    <div class="w-full" @click="enterEditMode" data-testid="task-title-container">
       <input
         class="inline-block w-full lg:min-w-3xl rounded-xl px-2 py-1 mx-4"
         type="text"
@@ -18,6 +19,7 @@
         @blur="emitUpdateTask(task, originalTitle)"
         @keyup.enter="emitUpdateTask(task, originalTitle)"
         @keyup.escape="exitEditMode"
+        data-testid="task-title-input"
       />
       <span
         class="inline-block w-full px-2 py-1 break-words align-top mx-4"

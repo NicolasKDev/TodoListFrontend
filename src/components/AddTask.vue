@@ -7,10 +7,15 @@
       v-model="tasksStore.newTaskTitle"
       :maxlength="tasksStore.maxTitleLength"
     />
-    <simple-button class="w-1/7 h-10 lg:flex hidden justify-center items-center"
+    <simple-button
+      class="w-1/7 h-10 lg:flex hidden justify-center items-center"
+      data-testid="desktop-button"
       >Add a task</simple-button
     >
-    <simple-button class="w-1/7 h-10 lg:hidden flex justify-center items-center">
+    <simple-button
+      class="w-1/7 h-10 lg:hidden flex justify-center items-center"
+      data-testid="mobile-button"
+    >
       <PlusIcon class="h-6 w-6" />
     </simple-button>
   </form>
