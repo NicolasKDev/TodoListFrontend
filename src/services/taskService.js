@@ -16,7 +16,11 @@ export const apiGetTaskList = async () => {
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Specific axios error
-      console.error('Axios error:', error.response.status, error.response.data)
+      console.error(
+        'Axios error:',
+        error.response?.status ?? 'Unknown status',
+        error.response?.data ?? 'Unknown data',
+      )
     } else {
       // Other error type (JS, network, etc.)
       console.error('Unexpected error:', error)
@@ -44,7 +48,11 @@ export const apiCreateNewTask = async (newTaskTitle) => {
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Specific axios error
-      console.error('Axios error:', error.response.status, error.response.data)
+      console.error(
+        'Axios error:',
+        error.response?.status ?? 'Unknown status',
+        error.response?.data ?? 'Unknown data',
+      )
     } else {
       // Other error type (JS, network, etc.)
       console.error('Unexpected error:', error)
@@ -67,7 +75,11 @@ export const apiDeleteTask = async (task) => {
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Specific axios error
-      console.error('Axios error:', error.response.status, error.response.data)
+      console.error(
+        'Axios error:',
+        error.response?.status ?? 'Unknown status',
+        error.response?.data ?? 'Unknown data',
+      )
     } else {
       // Other error type (JS, network, etc.)
       console.error('Unexpected error:', error)
@@ -90,7 +102,11 @@ export const apiPatchTask = async (task) => {
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // Specific axios error
-      console.error('Axios error:', error.response.status, error.response.data)
+      console.error(
+        'Axios error:',
+        error.response?.status ?? 'Unknown status',
+        error.response?.data ?? 'Unknown data',
+      )
     } else {
       // Other error type (JS, network, etc.)
       console.error('Unexpected error:', error)

@@ -1,5 +1,6 @@
 <template>
   <div
+    data-testid="info-toast"
     v-if="toastStore.message"
     class="absolute top-5 left-1/2 -translate-x-1/2 z-100 xl:w-1/5 w-80"
     @click="toastStore.reset"
