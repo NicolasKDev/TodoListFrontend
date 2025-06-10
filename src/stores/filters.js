@@ -31,6 +31,21 @@ export const useFiltersStore = defineStore('filters', () => {
     return tasks
   }
 
+  const isFilterApplied = () => {
+    let filtered = false
+    filters.value.forEach((filter) => {
+      switch (filter.filterName) {
+        case 'state':
+          if (filter.filterValues.length === 1) {
+            filtered = true
+          }
+          break
+      }
+    })
+
+    return filtered
+  }
+
   /**
    * Add or update a filter in the store
    * @param {string} filterName the name of the filter
@@ -66,6 +81,7 @@ export const useFiltersStore = defineStore('filters', () => {
   return {
     filters,
     applyFilters,
+    isFilterApplied,
     addOrUpdateFilter,
     visibleFilters,
     getFilter,
