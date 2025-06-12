@@ -5,17 +5,19 @@ import TaskCard from '@/components/TaskCard.vue'
 import draggable from 'vuedraggable'
 import { useTasksStore } from '@/stores/tasks'
 import { createPinia, setActivePinia } from 'pinia'
+import { useFiltersStore } from '@/stores/filters'
 
 describe('TaskCardList.vue', () => {
   let pinia
   let wrapper
   let storeTasks
+  let filterStore
 
   beforeEach(async () => {
     pinia = createPinia()
     setActivePinia(pinia)
     storeTasks = useTasksStore()
-
+    filterStore = useFiltersStore()
     storeTasks.tasks = [
       { id: 1, title: 'Task 1', order: 1 },
       { id: 3, title: 'Task 2', order: 2 },
@@ -97,5 +99,23 @@ describe('TaskCardList.vue', () => {
     const firstTaskCard = wrapper.findComponent(TaskCard)
     await firstTaskCard.vm.$emit('delete-task', taskToDelete)
     expect(storeTasks.deleteTask).toHaveBeenCalledWith(taskToDelete)
+  })
+
+  it('should display draggable tasks when there are no filters applied', async () => {
+    filterStore.addOrUpdateFilter('state', ['completed', 'todo'])
+    await flushPromises()
+    const nonDraggableTasks = wrapper.find('[data-testid="non-draggable-tasks"]')
+    expect(nonDraggableTasks.exists()).toBe(false)
+    const draggableTasks = wrapper.find('[data-testid="draggable-tasks"]')
+    expect(draggableTasks.exists()).toBe(true)
+  })
+
+  it('should display non draggable tasks when a filter is applied', async () => {
+    filterStore.addOrUpdateFilter('state', ['completed'])
+    await flushPromises()
+    const nonDraggableTasks = wrapper.find('[data-testid="non-draggable-tasks"]')
+    expect(nonDraggableTasks.exists()).toBe(true)
+    const draggableTasks = wrapper.find('[data-testid="draggable-tasks"]')
+    expect(draggableTasks.exists()).toBe(false)
   })
 })
