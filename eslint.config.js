@@ -7,6 +7,11 @@ import prettierPlugin from 'eslint-plugin-prettier'
 import prettierConfig from 'eslint-config-prettier'
 
 export default defineConfig([
+  // Configuration pour ignorer les dossiers
+  {
+    ignores: ['dist/**', 'node_modules/**', 'coverage/**', '.vite/**', '*.min.js', '*.bundle.js'],
+  },
+  // Configuration principale
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,vue}'],
     plugins: { js, prettier: prettierPlugin },
@@ -29,7 +34,7 @@ export default defineConfig([
         },
       ],
     },
-  }, // prettierConfig is the config for prettier
+  },
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,vue}'],
     languageOptions: { globals: globals.browser },

@@ -1,5 +1,7 @@
 <template>
-  <button class="bg-none hover:opacity-50 rounded-xl px-2 py-1 mx-2 my-1 align-bottom">
+  <button
+    class="bg-none p-2 rounded-lg hover:bg-accent/10 transition-colors align-bottom hover:opacity-60"
+  >
     <slot />
   </button>
 </template>

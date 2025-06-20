@@ -28,7 +28,7 @@ describe('InfoToast.vue', () => {
   })
 
   it('renders error icon when type is "error"', () => {
-    toastStore.message = 'This is an error !'
+    toastStore.message = 'This is an error!'
     toastStore.type = 'error'
     const wrapper = mount(InfoToast, { plugins: [pinia] })
     expect(wrapper.findComponent(XMarkIcon).exists()).toBe(true)
@@ -36,17 +36,21 @@ describe('InfoToast.vue', () => {
 
   it('calls reset when toast is clicked', async () => {
     toastStore.message = 'Reset on click'
-    const resetSpy = vi.spyOn(toastStore, 'reset')
     const wrapper = mount(InfoToast, { plugins: [pinia] })
 
-    await wrapper.trigger('click')
+    // Create spy after component mounting
+    const resetSpy = vi.spyOn(toastStore, 'reset')
+
+    await wrapper.find('[data-testid="info-toast"]').trigger('click')
     expect(resetSpy).toHaveBeenCalled()
   })
 
   it('calls reset when close button is clicked', async () => {
     toastStore.message = 'Reset on close click'
-    const resetSpy = vi.spyOn(toastStore, 'reset')
     const wrapper = mount(InfoToast, { plugins: [pinia] })
+
+    // Create spy after component mounting
+    const resetSpy = vi.spyOn(toastStore, 'reset')
 
     await wrapper.findComponent(XMarkIcon).trigger('click')
     expect(resetSpy).toHaveBeenCalled()

@@ -17,6 +17,11 @@ export const useTasksStore = defineStore('task', () => {
   const toastStore = useToastStore()
   const filtersStore = useFiltersStore()
 
+  const reset = () => {
+    tasks.value = []
+    newTaskTitle.value = ''
+  }
+
   /**
    * Loads the list of tasks from the API and update the store state.
    * This method is used everytime an action is done in the backend API
@@ -107,5 +112,6 @@ export const useTasksStore = defineStore('task', () => {
     deleteTask,
     patchTask,
     updateOrdersFromIndex,
+    reset,
   }
 })

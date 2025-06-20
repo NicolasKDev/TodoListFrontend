@@ -1,5 +1,17 @@
 import axios from 'axios'
-const API_URL = 'http://localhost:8000/api/tasks'
+import router from '@/router'
+import { api } from '@/config/axios'
+
+// Intercepteur pour gérer les erreurs d'authentification
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      router.push('/login')
+    }
+    return Promise.reject(error)
+  },
+)
 
 /**
  * Send a request to fetch the list of tasks from the backend API
@@ -8,9 +20,7 @@ const API_URL = 'http://localhost:8000/api/tasks'
  */
 export const apiGetTaskList = async () => {
   try {
-    // Send a GET request to the backend API to fetch the list of tasks
-    const res = await axios.get(API_URL)
-    // Sort tasks with order before returning
+    const res = await api.get('/tasks')
     const tasklist = res.data.sort((a, b) => a.order - b.order)
     return tasklist
   } catch (error) {
@@ -40,8 +50,7 @@ export const apiCreateNewTask = async (newTaskTitle) => {
     return { ok: false, data: null, message: 'Task title is required' }
   }
   try {
-    // Send a POST request to the backend API to create a new task
-    const response = await axios.post(API_URL, {
+    const response = await api.post('/tasks', {
       title: newTaskTitle,
     })
     return { ok: true, data: response.data, message: 'success' }
@@ -69,8 +78,7 @@ export const apiCreateNewTask = async (newTaskTitle) => {
  */
 export const apiDeleteTask = async (task) => {
   try {
-    // Send a DELETE request to the backend API to delete the task
-    const response = await axios.delete(API_URL + '/' + task.id)
+    const response = await api.delete(`/tasks/${task.id}`)
     return { ok: true, data: response.data, message: 'success' }
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -96,8 +104,7 @@ export const apiDeleteTask = async (task) => {
  */
 export const apiPatchTask = async (task) => {
   try {
-    // Send a PATCH request to the backend API to update the task
-    const response = await axios.patch(API_URL + '/' + task.id, task)
+    const response = await api.patch(`/tasks/${task.id}`, task)
     return { ok: true, data: response.data, message: 'success' }
   } catch (error) {
     if (axios.isAxiosError(error)) {
