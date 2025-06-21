@@ -17,11 +17,11 @@ describe('TaskCard.vue', () => {
     })
   })
 
-  it('affiche le titre de la tâche', () => {
+  it('displays the task title', () => {
     expect(wrapper.text()).toContain('Test Task')
   })
 
-  it('Emit updateTask when the box is checked', async () => {
+  it('emits updateTask when the box is checked', async () => {
     const checkbox = wrapper.find('[data-testid="task-checkbox"]')
     await checkbox.setValue(true)
 
@@ -30,12 +30,12 @@ describe('TaskCard.vue', () => {
     expect(emittedTask.completed).toBe(true)
   })
 
-  it('display a text field when clicking on text', async () => {
+  it('displays a text field when clicking on text', async () => {
     await wrapper.find('[data-testid="task-title-container"]').trigger('click')
     expect(wrapper.find('[data-testid="task-title-input"]').exists()).toBe(true)
   })
 
-  it('Emit updateTask when someone press enter after a modification', async () => {
+  it('emits updateTask when someone presses enter after a modification', async () => {
     const originalTitle = task.title
     const newTitle = 'Updated Task'
     await wrapper.find('[data-testid="task-title-container"]').trigger('click')
@@ -49,7 +49,7 @@ describe('TaskCard.vue', () => {
     expect(originalTitleEmitted).toBe(originalTitle)
   })
 
-  it('cancel the modification if someone press escape', async () => {
+  it('cancels the modification if someone presses escape', async () => {
     const originalTitle = task.title
     const newTitle = 'Updated Task'
 
@@ -63,7 +63,7 @@ describe('TaskCard.vue', () => {
     expect(wrapper.text()).toContain(originalTitle)
   })
 
-  it('Emit deleteTask when clicking on the trash button', async () => {
+  it('emits deleteTask when clicking on the trash button', async () => {
     await wrapper.findComponent({ name: 'IconButton' }).trigger('click')
     expect(wrapper.emitted('deleteTask')).toBeTruthy()
   })

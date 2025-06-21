@@ -52,7 +52,6 @@
   // Id of the modified task
   const modifyingId = ref(null)
 
-  // Utilisation de computed pour synchroniser avec props.task
   const localTask = computed({
     get: () => props.task,
     set: () => emitUpdateTask(),
@@ -64,7 +63,7 @@
   }
 
   /**
-   * Sets the task field to be in edit mod
+   * Sets the task field to be in edit mode
    */
   const enterEditMode = () => {
     modifyingId.value = props.task.id

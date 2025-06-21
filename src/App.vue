@@ -1,16 +1,18 @@
 <template>
-  <global-task-filter class="2xl:block hidden" />
-  <div class="relative flex flex-col justify-start items-start 2xl:w-4/5 w-full">
+  <div class="min-h-screen bg-background">
+    <router-view />
     <info-toast />
-    <add-task />
-    <global-task-filter class="2xl:hidden block" />
-    <task-card-list />
   </div>
 </template>
 
 <script setup>
-  import AddTask from '@/components/AddTask.vue'
-  import TaskCardList from '@/components/TaskCardList.vue'
+  import { onMounted } from 'vue'
   import InfoToast from '@/components/InfoToast.vue'
-  import GlobalTaskFilter from '@/components/filters/GlobalTaskFilter.vue'
+  import { useAuthStore } from '@/stores/auth'
+
+  const authStore = useAuthStore()
+
+  onMounted(async () => {
+    await authStore.initAuth()
+  })
 </script>

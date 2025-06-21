@@ -18,7 +18,7 @@ describe('AddTask.vue', () => {
     wrapper = mount(AddTask, { plugins: [pinia] })
   })
 
-  it('render the form correctly', () => {
+  it('renders the form correctly', () => {
     expect(wrapper.find('form').exists()).toBe(true)
     expect(wrapper.find('input').exists()).toBe(true)
     expect(wrapper.findAllComponents(SimpleButton)).toHaveLength(2)
@@ -36,7 +36,7 @@ describe('AddTask.vue', () => {
     expect(createTaskSpy).toHaveBeenCalled()
   })
 
-  it('Display plus icon on smaller devices', () => {
+  it('displays plus icon on smaller devices', () => {
     const desktopButton = wrapper.get('[data-testid="desktop-button"]')
     const mobileButton = wrapper.get('[data-testid="mobile-button"]')
 

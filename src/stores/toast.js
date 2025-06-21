@@ -4,7 +4,7 @@ import { ref } from 'vue'
 export const useToastStore = defineStore('toast', () => {
   const message = ref('')
   const type = ref('error')
-  const showingTime = 4000
+  const showingTime = 3000
   /**
    * Show a toast message of a given type.
    * @param {string} messageToShow The message to show in the toast.

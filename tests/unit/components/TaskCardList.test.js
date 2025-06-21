@@ -31,7 +31,7 @@ describe('TaskCardList.vue', () => {
       { id: 9, title: 'Task 10', order: 10 },
     ]
 
-    // Mock des méthodes comme spy
+    // Mock methods as spies
     storeTasks.loadTasks = vi.fn()
     storeTasks.updateOrdersFromIndex = vi.fn(() => {
       storeTasks.tasks.forEach((task, index) => {
