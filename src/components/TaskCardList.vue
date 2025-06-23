@@ -4,6 +4,7 @@
     class="flex flex-col justify-center w-full px-10"
     v-model="tasksStore.tasks"
     item-key="order"
+    handle="#drag-handle"
     @end="onDragEnd"
     data-testid="draggable-tasks"
   >

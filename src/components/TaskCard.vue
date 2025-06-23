@@ -1,7 +1,10 @@
 <template>
   <div
-    class="flex w-full justify-start items-center p-2 rounded shadow text-card-foreground hover:bg-accent space-x-2 cursor-pointer"
+    class="flex w-full justify-start items-center p-2 rounded shadow text-card-foreground hover:bg-accent space-x-2"
   >
+    <div class="cursor-grab active:cursor-grabbing p-1 hover:bg-accent rounded" id="drag-handle">
+      <Bars3Icon class="h-4 w-4 text-muted-foreground" />
+    </div>
     <input
       class="flex space-x-2 cursor-pointer hover:bg-accent p-2 rounded"
       type="checkbox"
@@ -36,7 +39,7 @@
 
 <script setup>
   import { ref, computed } from 'vue'
-  import { TrashIcon } from '@heroicons/vue/24/solid'
+  import { TrashIcon, Bars3Icon } from '@heroicons/vue/24/solid'
   import IconButton from '@/components/IconButton.vue'
 
   const emit = defineEmits(['updateTask', 'deleteTask'])
