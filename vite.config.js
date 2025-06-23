@@ -17,10 +17,4 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
   },
-  server: {
-    host: 'yatodolist.kelelabs.com',
-    port: 5173,
-    strictPort: true,
-    cors: true,
-  },
 })

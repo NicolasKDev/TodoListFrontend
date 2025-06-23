@@ -63,8 +63,7 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = null
     error.value = null
 
-    const csrfUrl =
-      import.meta.env.VITE_CSRF_URL || 'http://yatlapi.kelelabs.com:8000/sanctum/csrf-cookie'
+    const csrfUrl = import.meta.env.VITE_CSRF_URL
     await axios.get(csrfUrl, {
       withCredentials: true,
     })
@@ -159,8 +158,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   async function initAuth() {
     try {
-      const csrfUrl =
-        import.meta.env.VITE_CSRF_URL || 'http://yatlapi.kelelabs.com:8000/sanctum/csrf-cookie'
+      const csrfUrl = import.meta.env.VITE_CSRF_URL
 
       try {
         await axios.get(csrfUrl, {
