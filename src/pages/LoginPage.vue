@@ -24,7 +24,7 @@
   import { useRouter } from 'vue-router'
   import { useAuthStore } from '@/stores/auth'
   import { useToastStore } from '@/stores/toast'
-  import LoginForm from '@/components/LoginForm.vue'
+  import LoginForm from '@/components/forms/LoginForm.vue'
 
   const router = useRouter()
   const authStore = useAuthStore()
