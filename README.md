@@ -1,3 +1,5 @@
+
+
 # TodoList Frontend
 
 This project is a frontend for my fullstack project of a todo list made with Vue 3 and Laravel.
@@ -8,14 +10,12 @@ This project is a frontend for my fullstack project of a todo list made with Vue
 - Todo/Done tasks management
 - Responsive design
 - Structured storage with Pinia
-
-### To be done
-
-- Authentication
-- Optimistic UI
 - Task filter
-- Dark mode
+- Authentication
 - Unit tests
+### To be done
+- Optimistic UI
+- Dark mode
 
 ## Prerequisites
 
