@@ -7,9 +7,17 @@
     leave-from-class="opacity-100"
     leave-to-class="opacity-0"
   >
-    <div v-if="modelValue" class="fixed inset-0 z-70 flex items-center justify-center">
+    <div
+      v-if="modelValue"
+      class="fixed inset-0 z-70 flex items-center justify-center"
+      data-testid="base-dialog"
+    >
       <!-- Overlay -->
-      <div class="absolute inset-0 bg-background/60" @click="$emit('update:modelValue', false)" />
+      <div
+        class="absolute inset-0 bg-background/60"
+        @click="handleOverlayClick"
+        data-testid="dialog-overlay"
+      />
 
       <!-- Dialog -->
       <Transition
@@ -23,29 +31,28 @@
         <div
           v-if="modelValue"
           class="relative bg-card border border-border rounded-lg shadow-lg w-full max-w-md mx-4"
+          :class="maxHeightClass"
+          data-testid="dialog-content"
         >
           <!-- Header -->
-          <div class="px-6 py-4 border-b border-border">
-            <h3 class="text-lg font-semibold text-foreground">
+          <div v-if="title" class="px-6 py-4 border-b border-border" data-testid="dialog-header">
+            <h3 class="text-lg font-semibold text-foreground" data-testid="dialog-title">
               {{ title }}
             </h3>
           </div>
 
           <!-- Content -->
-          <div class="px-6 py-4">
-            <p class="text-muted-foreground">
-              {{ message }}
-            </p>
+          <div class="px-6 py-4" data-testid="dialog-body">
+            <slot />
           </div>
 
           <!-- Footer -->
-          <div class="px-6 py-4 border-t border-border flex justify-end gap-3">
-            <SimpleButton variant="outline" @click="$emit('update:modelValue', false)">
-              Cancel
-            </SimpleButton>
-            <SimpleButton variant="destructive" @click="handleConfirm">
-              {{ confirmLabel }}
-            </SimpleButton>
+          <div
+            v-if="$slots.footer"
+            class="px-6 py-4 border-t border-border"
+            data-testid="dialog-footer"
+          >
+            <slot name="footer" />
           </div>
         </div>
       </Transition>
@@ -54,31 +61,30 @@
 </template>
 
 <script setup>
-  import SimpleButton from './SimpleButton.vue'
-
-  defineProps({
+  const props = defineProps({
     modelValue: {
       type: Boolean,
       required: true,
     },
     title: {
       type: String,
-      default: 'Confirmation',
+      default: '',
     },
-    message: {
+    maxHeightClass: {
       type: String,
-      required: true,
+      default: '',
     },
-    confirmLabel: {
-      type: String,
-      default: 'Confirm',
+    closeOnOverlayClick: {
+      type: Boolean,
+      default: true,
     },
   })
 
-  const emit = defineEmits(['update:modelValue', 'confirm'])
+  const emit = defineEmits(['update:modelValue'])
 
-  const handleConfirm = () => {
-    emit('confirm')
-    emit('update:modelValue', false)
+  const handleOverlayClick = () => {
+    if (props.closeOnOverlayClick) {
+      emit('update:modelValue', false)
+    }
   }
 </script>

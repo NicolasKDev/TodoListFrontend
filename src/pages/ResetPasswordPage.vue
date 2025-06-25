@@ -15,7 +15,7 @@
   import { useRoute, useRouter } from 'vue-router'
   import { useToastStore } from '@/stores/toast'
   import { useAuthStore } from '@/stores/auth'
-  import ResetPasswordForm from '@/components/ResetPasswordForm.vue'
+  import ResetPasswordForm from '@/components/forms/ResetPasswordForm.vue'
 
   const route = useRoute()
   const router = useRouter()

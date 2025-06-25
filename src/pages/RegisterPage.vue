@@ -23,7 +23,7 @@
   import { useRouter } from 'vue-router'
   import { useAuthStore } from '@/stores/auth'
   import { useToastStore } from '@/stores/toast'
-  import RegisterForm from '@/components/RegisterForm.vue'
+  import RegisterForm from '@/components/forms/RegisterForm.vue'
 
   const router = useRouter()
   const authStore = useAuthStore()

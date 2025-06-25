@@ -10,7 +10,7 @@
     <div v-if="isOpen" class="fixed inset-0 bg-black/50 z-55" @click="isOpen = false"></div>
 
     <div
-      class="fixed top-0 left-0 h-full w-64 bg-card text-card-foreground shadow-lg transform transition-transform duration-300 z-60"
+      class="fixed top-0 left-0 h-full w-64 bg-card text-card-foreground shadow-lg transform transition-transform duration-300 z-60 flex flex-col"
       :class="isOpen ? 'translate-x-0' : '-translate-x-full'"
     >
       <div class="p-4 border-b border-border flex items-center justify-between">
@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <nav class="p-4 space-y-2">
+      <nav class="p-4 space-y-2 flex-1">
         <button
           @click="showLogoutConfirm = true"
           class="w-full text-left px-4 py-2 rounded-lg hover:bg-accent/10 transition-colors flex items-center space-x-2"
@@ -34,6 +34,17 @@
           <span>Logout</span>
         </button>
       </nav>
+
+      <!-- Bottom section with Terms of Use -->
+      <div class="p-4 border-t border-border">
+        <button
+          @click="showTermsOfUse = true"
+          class="w-full text-left px-4 py-2 rounded-lg hover:bg-accent/10 transition-colors flex items-center space-x-2 text-sm text-muted-foreground"
+        >
+          <DocumentTextIcon class="h-4 w-4" />
+          <span>Terms of Use</span>
+        </button>
+      </div>
     </div>
 
     <!-- Logout Confirmation Dialog -->
@@ -44,6 +55,9 @@
       confirm-label="Yes, logout"
       @confirm="handleLogout"
     />
+
+    <!-- Terms of Use Dialog -->
+    <terms-of-use-dialog v-model="showTermsOfUse" />
   </div>
 </template>
 
@@ -51,11 +65,18 @@
   import { ref } from 'vue'
   import { useAuthStore } from '@/stores/auth'
   import IconButton from '@/components/IconButton.vue'
-  import ConfirmDialog from '@/components/ConfirmDialog.vue'
-  import { Bars3Icon, XMarkIcon, ArrowRightEndOnRectangleIcon } from '@heroicons/vue/24/outline'
+  import ConfirmDialog from '@/components/dialogs/ConfirmDialog.vue'
+  import TermsOfUseDialog from '@/components/dialogs/TermsOfUseDialog.vue'
+  import {
+    Bars3Icon,
+    XMarkIcon,
+    ArrowRightEndOnRectangleIcon,
+    DocumentTextIcon,
+  } from '@heroicons/vue/24/outline'
 
   const isOpen = ref(false)
   const showLogoutConfirm = ref(false)
+  const showTermsOfUse = ref(false)
   const authStore = useAuthStore()
 
   const handleLogout = () => {
