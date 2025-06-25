@@ -1,5 +1,10 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-background p-4">
+  <div class="min-h-screen flex items-center justify-center bg-background p-4 relative">
+    <!-- Theme toggle in top right corner -->
+    <div class="absolute top-4 right-4">
+      <theme-toggle />
+    </div>
+
     <div class="w-full max-w-md">
       <reset-password-form
         :loading="loading"
@@ -16,6 +21,7 @@
   import { useToastStore } from '@/stores/toast'
   import { useAuthStore } from '@/stores/auth'
   import ResetPasswordForm from '@/components/forms/ResetPasswordForm.vue'
+  import ThemeToggle from '@/components/ThemeToggle.vue'
 
   const route = useRoute()
   const router = useRouter()

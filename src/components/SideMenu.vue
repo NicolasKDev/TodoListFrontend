@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="fixed top-4 left-4 z-60 flex items-center space-x-2">
+    <div class="text-foreground fixed top-4 left-4 z-60 flex items-center space-x-2">
       <icon-button @click="isOpen = !isOpen">
         <Bars3Icon class="h-6 w-6" />
       </icon-button>
@@ -35,8 +35,17 @@
         </button>
       </nav>
 
-      <!-- Bottom section with Terms of Use -->
+      <!-- Bottom section with Theme Toggle and Terms of Use -->
       <div class="p-4 border-t border-border">
+        <button
+          @click="themeStore.toggleTheme()"
+          class="w-full text-left px-4 py-2 rounded-lg hover:bg-accent/10 transition-colors flex items-center space-x-2 text-sm text-muted-foreground mb-2"
+          :title="themeStore.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+        >
+          <SunIcon v-if="themeStore.theme === 'dark'" class="h-4 w-4" />
+          <MoonIcon v-else class="h-4 w-4" />
+          <span>{{ themeStore.theme === 'dark' ? 'Light mode' : 'Dark mode' }}</span>
+        </button>
         <button
           @click="showTermsOfUse = true"
           class="w-full text-left px-4 py-2 rounded-lg hover:bg-accent/10 transition-colors flex items-center space-x-2 text-sm text-muted-foreground"
@@ -72,12 +81,16 @@
     XMarkIcon,
     ArrowRightEndOnRectangleIcon,
     DocumentTextIcon,
+    SunIcon,
+    MoonIcon,
   } from '@heroicons/vue/24/outline'
+  import { useThemeStore } from '@/stores/theme'
 
   const isOpen = ref(false)
   const showLogoutConfirm = ref(false)
   const showTermsOfUse = ref(false)
   const authStore = useAuthStore()
+  const themeStore = useThemeStore()
 
   const handleLogout = () => {
     authStore.logout()

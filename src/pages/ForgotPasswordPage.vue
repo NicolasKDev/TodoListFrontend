@@ -1,5 +1,10 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-background p-4">
+  <div class="min-h-screen flex items-center justify-center bg-background p-4 relative">
+    <!-- Theme toggle in top right corner -->
+    <div class="absolute top-4 right-4">
+      <theme-toggle />
+    </div>
+
     <div class="w-full max-w-md">
       <div class="w-full max-w-md mx-auto p-6 bg-card text-card-foreground rounded-xl shadow-md">
         <h2 class="text-2xl font-bold text-center mb-6">Reset password</h2>
@@ -43,6 +48,7 @@
   import { useToastStore } from '@/stores/toast'
   import { useAuthStore } from '@/stores/auth'
   import SimpleButton from '@/components/SimpleButton.vue'
+  import ThemeToggle from '@/components/ThemeToggle.vue'
   import { validateForm, formatValidationErrors } from '@/utils/validation'
   import { forgotPasswordValidationRules } from '@/utils/validationRules'
 
