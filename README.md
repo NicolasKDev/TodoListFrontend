@@ -11,6 +11,7 @@ This project is a frontend for my fullstack project of a todo list made with Vue
 - Task filter
 - Authentication
 - Unit tests
+- Dark mode
 
 ### To be done
 
@@ -19,7 +20,6 @@ This project is a frontend for my fullstack project of a todo list made with Vue
 - Change password (other way than forgot password)
 - Optimistic UI
 - Deadline
-- Dark mode
 
 ## Prerequisites
 

@@ -1,5 +1,10 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-background p-4">
+  <div class="min-h-screen flex items-center justify-center bg-background p-4 relative">
+    <!-- Theme toggle in top right corner -->
+    <div class="absolute top-4 right-4">
+      <theme-toggle />
+    </div>
+
     <div class="w-full max-w-md">
       <login-form
         :loading="loading"
@@ -25,6 +30,7 @@
   import { useAuthStore } from '@/stores/auth'
   import { useToastStore } from '@/stores/toast'
   import LoginForm from '@/components/forms/LoginForm.vue'
+  import ThemeToggle from '@/components/ThemeToggle.vue'
 
   const router = useRouter()
   const authStore = useAuthStore()

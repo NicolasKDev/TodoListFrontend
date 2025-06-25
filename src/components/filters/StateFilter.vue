@@ -13,7 +13,7 @@
           class="w-4 h-4 rounded border-input"
           data-testid="todo-checkbox"
         />
-        <span class="text-sm">Todo</span>
+        <span class="text-foreground text-sm">Todo</span>
       </label>
       <label
         class="flex items-center space-x-2 cursor-pointer hover:bg-accent/10 p-2 rounded transition-colors"
@@ -26,7 +26,7 @@
           class="w-4 h-4 rounded border-input"
           data-testid="done-checkbox"
         />
-        <span class="text-sm">Done</span>
+        <span class="text-foreground text-sm">Done</span>
       </label>
     </div>
   </div>
