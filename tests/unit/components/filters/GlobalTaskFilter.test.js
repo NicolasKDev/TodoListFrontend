@@ -37,31 +37,39 @@ vi.mock('@/services/taskService', () => ({
 
 describe('GlobalTaskFilter.vue', () => {
   let pinia
+  let wrapper
+  let filtersStore
 
   beforeEach(() => {
     pinia = createPinia()
     setActivePinia(pinia)
+    filtersStore = useFiltersStore()
     vi.clearAllMocks()
+    wrapper = mount(GlobalTaskFilter, {
+      global: {
+        plugins: [pinia],
+        mocks: {
+          $t: (key) => key,
+        },
+      },
+    })
   })
 
   it('toggles visibleFilters when clicking on the button', async () => {
-    const wrapper = mount(GlobalTaskFilter, { plugins: [pinia] })
-    const filtersStore = useFiltersStore()
     const button = wrapper.find('[data-testid="filters-button"]')
 
+    // Initially visibleFilters should be false
     expect(filtersStore.visibleFilters).toBe(false)
     await button.trigger('click')
+    // After click visibleFilters should be true
     expect(filtersStore.visibleFilters).toBe(true)
     await button.trigger('click')
     expect(filtersStore.visibleFilters).toBe(false)
   })
 
   it('renders the StateFilter component in the panel', async () => {
-    const wrapper = mount(GlobalTaskFilter, { plugins: [pinia] })
-    const filtersStore = useFiltersStore()
     filtersStore.visibleFilters = true
     await wrapper.vm.$nextTick()
-    const stateFilter = wrapper.findComponent(StateFilter)
-    expect(stateFilter.exists()).toBe(true)
+    expect(wrapper.findComponent(StateFilter).exists()).toBe(true)
   })
 })

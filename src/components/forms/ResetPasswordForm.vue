@@ -1,11 +1,13 @@
 <template>
   <div class="w-full max-w-md mx-auto p-6 bg-card text-card-foreground rounded-xl shadow-md">
-    <h2 class="text-2xl font-bold text-center mb-6">Reset Password</h2>
-    <p class="text-muted-foreground text-center mb-6">Please enter your new password</p>
+    <h2 class="text-2xl font-bold text-center mb-6">{{ $t('auth.reset_password_title') }}</h2>
+    <p class="text-muted-foreground text-center mb-6">{{ $t('auth.please_enter_new_password') }}</p>
 
     <form @submit.prevent="handleSubmit" class="space-y-4">
       <div>
-        <label for="password" class="block text-sm font-medium mb-1">New password</label>
+        <label for="password" class="block text-sm font-medium mb-1">
+          {{ $t('auth.new_password') }}
+        </label>
         <input
           id="password"
           v-model="password"
@@ -18,7 +20,9 @@
       </div>
 
       <div>
-        <label for="confirmPassword" class="block text-sm font-medium mb-1">Confirm password</label>
+        <label for="confirmPassword" class="block text-sm font-medium mb-1">
+          {{ $t('auth.confirm_password') }}
+        </label>
         <input
           id="confirmPassword"
           v-model="confirmPassword"
@@ -31,13 +35,13 @@
       </div>
 
       <simple-button type="submit" class="w-full" :disabled="loading">
-        {{ loading ? 'Reset password...' : 'Reset password' }}
+        {{ loading ? $t('auth.reset_password_loading') : $t('auth.reset_password') }}
       </simple-button>
 
       <div class="text-center mt-4">
         <p class="text-sm text-muted-foreground">
           <router-link to="/login" class="text-accent hover:text-accent/80 font-medium">
-            Back to login
+            {{ $t('auth.back_to_login') }}
           </router-link>
         </p>
       </div>

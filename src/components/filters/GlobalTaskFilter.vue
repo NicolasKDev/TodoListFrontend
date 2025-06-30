@@ -6,7 +6,7 @@
         @click="filtersStore.visibleFilters = !filtersStore.visibleFilters"
         data-testid="filters-button"
       >
-        <span class="px-2">Filters</span>
+        <span class="px-2">{{ $t('common.filters') }}</span>
         <chevron-down-icon
           class="h-5 w-5 transition-transform duration-200"
           :class="{ 'rotate-180': filtersStore.visibleFilters }"

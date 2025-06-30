@@ -13,31 +13,36 @@ vi.mock('@/stores/auth', () => ({
 
 describe('LoginPage', () => {
   let pinia
+  let wrapper
+
   beforeEach(() => {
     pinia = createPinia()
     setActivePinia(pinia)
+    wrapper = mount(LoginPage, {
+      global: {
+        plugins: [pinia],
+        mocks: {
+          $t: (key) => key,
+        },
+      },
+    })
   })
 
   it('displays the login form', () => {
-    const wrapper = mount(LoginPage, {
-      global: { plugins: [pinia] },
-    })
-    expect(wrapper.text()).toContain('Sign in')
+    expect(wrapper.text()).toContain('auth.sign_in')
     expect(wrapper.find('form').exists()).toBe(true)
     expect(wrapper.find('input[type="email"]').exists()).toBe(true)
     expect(wrapper.find('input[type="password"]').exists()).toBe(true)
   })
 
   it('submits the form with credentials', async () => {
-    const wrapper = mount(LoginPage, {
-      global: { plugins: [pinia] },
-    })
     const emailInput = wrapper.find('input[type="email"]')
     const passwordInput = wrapper.find('input[type="password"]')
+    const form = wrapper.find('form')
 
     await emailInput.setValue('test@example.com')
     await passwordInput.setValue('password123')
-    await wrapper.find('form').trigger('submit.prevent')
+    await form.trigger('submit.prevent')
 
     expect(emailInput.element.value).toBe('test@example.com')
     expect(passwordInput.element.value).toBe('password123')

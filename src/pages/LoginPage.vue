@@ -1,38 +1,33 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-background p-4 relative">
-    <!-- Theme toggle in top right corner -->
-    <div class="absolute top-4 right-4">
-      <theme-toggle />
+  <auth-layout>
+    <login-form
+      :loading="loading"
+      @submit="handleLogin"
+      @forgot-password="handleForgotPassword"
+      @validation-error="handleValidationError"
+    />
+    <div class="mt-4 text-center">
+      <p class="text-sm text-muted-foreground">
+        {{ $t('auth.dont_have_account') }}
+        <router-link to="/register" class="text-accent hover:text-accent/80 font-medium">
+          {{ $t('auth.sign_up') }}
+        </router-link>
+      </p>
     </div>
-
-    <div class="w-full max-w-md">
-      <login-form
-        :loading="loading"
-        @submit="handleLogin"
-        @forgot-password="handleForgotPassword"
-        @validation-error="handleValidationError"
-      />
-      <div class="mt-4 text-center">
-        <p class="text-sm text-muted-foreground">
-          Don't have an account?
-          <router-link to="/register" class="text-accent hover:text-accent/80 font-medium">
-            Sign up
-          </router-link>
-        </p>
-      </div>
-    </div>
-  </div>
+  </auth-layout>
 </template>
 
 <script setup>
   import { ref } from 'vue'
   import { useRouter } from 'vue-router'
+  import { useI18n } from 'vue-i18n'
   import { useAuthStore } from '@/stores/auth'
   import { useToastStore } from '@/stores/toast'
+  import AuthLayout from '@/components/layouts/AuthLayout.vue'
   import LoginForm from '@/components/forms/LoginForm.vue'
-  import ThemeToggle from '@/components/ThemeToggle.vue'
 
   const router = useRouter()
+  const { t } = useI18n()
   const authStore = useAuthStore()
   const toastStore = useToastStore()
 
@@ -46,10 +41,10 @@
       if (success) {
         router.push('/todo-dashboard')
       } else {
-        toastStore.show(authStore.error || 'Invalid credentials', 'error')
+        toastStore.show(authStore.error || t('Invalid credentials'), 'error')
       }
     } catch (err) {
-      toastStore.show(err.message || 'An error occurred while logging in', 'error')
+      toastStore.show(err.message || t('An error occurred while logging in'), 'error')
     } finally {
       loading.value = false
     }

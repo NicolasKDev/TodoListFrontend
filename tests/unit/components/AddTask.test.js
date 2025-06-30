@@ -15,7 +15,14 @@ describe('AddTask.vue', () => {
     setActivePinia(pinia)
     taskStore = useTasksStore()
 
-    wrapper = mount(AddTask, { plugins: [pinia] })
+    wrapper = mount(AddTask, {
+      plugins: [pinia],
+      global: {
+        mocks: {
+          $t: vi.fn((key) => key),
+        },
+      },
+    })
   })
 
   it('renders the form correctly', () => {

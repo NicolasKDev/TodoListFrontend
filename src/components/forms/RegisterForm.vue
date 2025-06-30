@@ -1,9 +1,9 @@
 <template>
   <div class="w-full max-w-md mx-auto p-6 bg-card text-card-foreground rounded-xl shadow-md">
-    <h2 class="text-2xl font-bold text-center mb-6">Sign up</h2>
+    <h2 class="text-2xl font-bold text-center mb-6">{{ $t('auth.sign_up') }}</h2>
     <form @submit.prevent="handleSubmit" class="space-y-4">
       <div>
-        <label for="email" class="block text-sm font-medium mb-1">Email</label>
+        <label for="email" class="block text-sm font-medium mb-1">{{ $t('auth.email') }}</label>
         <input
           id="email"
           type="email"
@@ -11,12 +11,14 @@
           required
           :disabled="loading"
           class="w-full px-3 py-2 border border-input rounded-xl focus:outline-none focus:ring-2 focus:ring-accent bg-background disabled:opacity-50"
-          placeholder="your@email.com"
+          placeholder="john@email.com"
         />
       </div>
 
       <div>
-        <label for="password" class="block text-sm font-medium mb-1">Password</label>
+        <label for="password" class="block text-sm font-medium mb-1">{{
+          $t('auth.password')
+        }}</label>
         <input
           id="password"
           type="password"
@@ -29,7 +31,9 @@
       </div>
 
       <div>
-        <label for="confirmPassword" class="block text-sm font-medium mb-1">Confirm Password</label>
+        <label for="confirmPassword" class="block text-sm font-medium mb-1">
+          {{ $t('auth.confirm_password') }}
+        </label>
         <input
           id="confirmPassword"
           type="password"
@@ -42,7 +46,7 @@
       </div>
 
       <simple-button type="submit" class="w-full" :disabled="loading">
-        {{ loading ? 'Please wait...' : 'Sign up' }}
+        {{ loading ? $t('common.please_wait') : $t('auth.sign_up') }}
       </simple-button>
     </form>
   </div>
