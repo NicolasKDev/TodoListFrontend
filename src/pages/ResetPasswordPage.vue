@@ -1,30 +1,25 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-background p-4 relative">
-    <!-- Theme toggle in top right corner -->
-    <div class="absolute top-4 right-4">
-      <theme-toggle />
-    </div>
-
-    <div class="w-full max-w-md">
-      <reset-password-form
-        :loading="loading"
-        @submit="handleSubmit"
-        @validation-error="handleValidationError"
-      />
-    </div>
-  </div>
+  <auth-layout>
+    <reset-password-form
+      :loading="loading"
+      @submit="handleSubmit"
+      @validation-error="handleValidationError"
+    />
+  </auth-layout>
 </template>
 
 <script setup>
   import { ref, onMounted } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
+  import { useI18n } from 'vue-i18n'
   import { useToastStore } from '@/stores/toast'
   import { useAuthStore } from '@/stores/auth'
+  import AuthLayout from '@/components/layouts/AuthLayout.vue'
   import ResetPasswordForm from '@/components/forms/ResetPasswordForm.vue'
-  import ThemeToggle from '@/components/ThemeToggle.vue'
 
   const route = useRoute()
   const router = useRouter()
+  const { t } = useI18n()
   const authStore = useAuthStore()
   const toastStore = useToastStore()
 
@@ -48,13 +43,13 @@
         formData.password_confirmation,
       )
       if (success) {
-        toastStore.show('Your password has been reset successfully', 'success')
+        toastStore.show(t('Your password has been reset successfully'), 'success')
         router.push('/login')
       } else {
         toastStore.show(authStore.error, 'error')
       }
     } catch (err) {
-      toastStore.show(err.message || 'An error occurred', 'error')
+      toastStore.show(err.message || t('An error occurred'), 'error')
     } finally {
       loading.value = false
     }

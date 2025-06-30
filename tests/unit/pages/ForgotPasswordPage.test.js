@@ -13,23 +13,27 @@ vi.mock('@/stores/auth', () => ({
 
 describe('ForgotPasswordPage', () => {
   let pinia
+  let wrapper
+
   beforeEach(() => {
     pinia = createPinia()
     setActivePinia(pinia)
+    wrapper = mount(ForgotPasswordPage, {
+      global: {
+        plugins: [pinia],
+        mocks: {
+          $t: (key) => key,
+        },
+      },
+    })
   })
 
   it('displays the form', () => {
-    const wrapper = mount(ForgotPasswordPage, {
-      global: { plugins: [pinia] },
-    })
-    expect(wrapper.text()).toContain('Reset password')
+    expect(wrapper.text()).toContain('auth.reset_password')
     expect(wrapper.find('form').exists()).toBe(true)
   })
 
   it('submits the form and clears the field', async () => {
-    const wrapper = mount(ForgotPasswordPage, {
-      global: { plugins: [pinia] },
-    })
     const input = wrapper.find('input[type="email"]')
     await input.setValue('test@example.com')
     await wrapper.find('form').trigger('submit.prevent')

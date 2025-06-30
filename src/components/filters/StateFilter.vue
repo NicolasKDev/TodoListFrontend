@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-2">
-    <h3 class="text-sm font-medium text-muted-foreground">State</h3>
+    <h3 class="text-sm font-medium text-muted-foreground">{{ $t('common.state') }}</h3>
     <div class="space-y-1">
       <label
         class="flex items-center space-x-2 cursor-pointer hover:bg-accent/10 p-2 rounded transition-colors"
@@ -13,7 +13,7 @@
           class="w-4 h-4 rounded border-input"
           data-testid="todo-checkbox"
         />
-        <span class="text-foreground text-sm">Todo</span>
+        <span class="text-foreground text-sm">{{ $t('common.todo') }}</span>
       </label>
       <label
         class="flex items-center space-x-2 cursor-pointer hover:bg-accent/10 p-2 rounded transition-colors"
@@ -26,7 +26,7 @@
           class="w-4 h-4 rounded border-input"
           data-testid="done-checkbox"
         />
-        <span class="text-foreground text-sm">Done</span>
+        <span class="text-foreground text-sm">{{ $t('common.done') }}</span>
       </label>
     </div>
   </div>

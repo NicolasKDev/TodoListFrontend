@@ -7,7 +7,7 @@
     <template #footer>
       <div class="flex justify-end gap-3">
         <SimpleButton variant="outline" @click="$emit('update:modelValue', false)">
-          Cancel
+          {{ $t('common.cancel') }}
         </SimpleButton>
         <SimpleButton variant="destructive" @click="handleConfirm">
           {{ confirmLabel }}

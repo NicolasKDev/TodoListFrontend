@@ -31,37 +31,42 @@
           class="w-full text-left px-4 py-2 rounded-lg hover:bg-accent/10 transition-colors flex items-center space-x-2"
         >
           <ArrowRightEndOnRectangleIcon class="h-5 w-5" />
-          <span>Logout</span>
+          <span>{{ $t('auth.logout') }}</span>
         </button>
       </nav>
 
-      <!-- Bottom section with Theme Toggle and Terms of Use -->
-      <div class="p-4 border-t border-border">
-        <button
+      <!-- Bottom section with Theme Toggle, Language Selector and Terms of Use -->
+      <div class="p-4 border-t border-border space-y-2">
+        <language-selector />
+        <settings-button
+          :label="themeStore.theme === 'dark' ? $t('common.light_mode') : $t('common.dark_mode')"
+          :title="
+            themeStore.theme === 'dark'
+              ? $t('common.switch_to_light_mode')
+              : $t('common.switch_to_dark_mode')
+          "
           @click="themeStore.toggleTheme()"
-          class="w-full text-left px-4 py-2 rounded-lg hover:bg-accent/10 transition-colors flex items-center space-x-2 text-sm text-muted-foreground mb-2"
-          :title="themeStore.theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
         >
-          <SunIcon v-if="themeStore.theme === 'dark'" class="h-4 w-4" />
-          <MoonIcon v-else class="h-4 w-4" />
-          <span>{{ themeStore.theme === 'dark' ? 'Light mode' : 'Dark mode' }}</span>
-        </button>
-        <button
-          @click="showTermsOfUse = true"
-          class="w-full text-left px-4 py-2 rounded-lg hover:bg-accent/10 transition-colors flex items-center space-x-2 text-sm text-muted-foreground"
-        >
-          <DocumentTextIcon class="h-4 w-4" />
-          <span>Terms of Use</span>
-        </button>
+          <template #icon>
+            <SunIcon v-if="themeStore.theme === 'dark'" class="h-4 w-4" />
+            <MoonIcon v-else class="h-4 w-4" />
+          </template>
+        </settings-button>
+
+        <settings-button :label="$t('dialogs.terms_of_use')" @click="showTermsOfUse = true">
+          <template #icon>
+            <DocumentTextIcon class="h-4 w-4" />
+          </template>
+        </settings-button>
       </div>
     </div>
 
     <!-- Logout Confirmation Dialog -->
     <confirm-dialog
       v-model="showLogoutConfirm"
-      title="Logout"
-      message="Are you sure you want to logout ?"
-      confirm-label="Yes, logout"
+      :title="$t('auth.logout')"
+      :message="$t('dialogs.logout_confirm')"
+      :confirm-label="$t('dialogs.yes_logout')"
       @confirm="handleLogout"
     />
 
@@ -74,6 +79,8 @@
   import { ref } from 'vue'
   import { useAuthStore } from '@/stores/auth'
   import IconButton from '@/components/IconButton.vue'
+  import SettingsButton from '@/components/SettingsButton.vue'
+  import LanguageSelector from '@/components/LanguageSelector.vue'
   import ConfirmDialog from '@/components/dialogs/ConfirmDialog.vue'
   import TermsOfUseDialog from '@/components/dialogs/TermsOfUseDialog.vue'
   import {

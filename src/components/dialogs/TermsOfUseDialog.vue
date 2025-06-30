@@ -1,26 +1,23 @@
 <template>
   <BaseDialog
     v-model="dialogValue"
-    title="Terms of Use"
+    :title="$t('dialogs.terms_of_use')"
     max-height-class="max-h-[80vh] overflow-y-auto"
   >
     <div class="text-muted-foreground space-y-3">
-      <p> This app is a personal demo created for learning and portfolio purposes. </p>
+      <p>{{ $t('terms_of_use.description') }}</p>
 
-      <ul class="list-disc list-inside space-y-2">
-        <li
-          >Data is stored on a secured server but is not end-to-end encrypted (except for
-          passwords).</li
-        >
-        <li>Please avoid submitting any personal or sensitive information.</li>
-        <li>This app may be modified, reset, or taken offline at any time without notice.</li>
-        <li>Use at your own risk.</li>
+      <ul class="list-disc list-inside space-y-2 text-sm">
+        <li>{{ $t('terms_of_use.data_security') }}</li>
+        <li>{{ $t('terms_of_use.personal_info') }}</li>
+        <li>{{ $t('terms_of_use.modifications') }}</li>
+        <li>{{ $t('terms_of_use.use_at_own_risk') }}</li>
       </ul>
     </div>
 
     <template #footer>
       <div class="flex justify-end">
-        <SimpleButton @click="handleUnderstand"> I understand </SimpleButton>
+        <SimpleButton @click="handleUnderstand">{{ $t('dialogs.i_understand') }}</SimpleButton>
       </div>
     </template>
   </BaseDialog>

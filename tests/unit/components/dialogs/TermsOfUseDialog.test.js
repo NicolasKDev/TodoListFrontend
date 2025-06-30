@@ -12,13 +12,18 @@ describe('TermsOfUseDialog.vue', () => {
       props: {
         modelValue: false,
       },
+      global: {
+        mocks: {
+          $t: (key) => key,
+        },
+      },
     })
   })
 
   it('renders BaseDialog component with correct props', () => {
     const baseDialog = wrapper.findComponent(BaseDialog)
     expect(baseDialog.exists()).toBe(true)
-    expect(baseDialog.props('title')).toBe('Terms of Use')
+    expect(baseDialog.props('title')).toBe('dialogs.terms_of_use')
     expect(baseDialog.props('maxHeightClass')).toBe('max-h-[80vh] overflow-y-auto')
   })
 
@@ -30,7 +35,7 @@ describe('TermsOfUseDialog.vue', () => {
 
     const button = footer.findComponent(SimpleButton)
     expect(button.exists()).toBe(true)
-    expect(button.text()).toBe('I understand')
+    expect(button.text()).toBe('dialogs.i_understand')
   })
 
   it('emits update:modelValue when "I understand" button is clicked', async () => {

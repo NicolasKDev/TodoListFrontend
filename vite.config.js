@@ -16,5 +16,12 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
+    setupFiles: ['./tests/setup.js'],
+  },
+  server: {
+    host: 'dev.kelelabs.com',
+    port: 5173,
+    strictPort: true,
+    cors: true,
   },
 })
